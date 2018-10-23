@@ -72,6 +72,19 @@ Ensemble::Ensemble (int t [], unsigned int nbElements )
     
     ens=new int[nbElements];
     cardAct = 0;
+    int min;
+    int ind_min;
+    for (unsigned int j = 0; j <nbElements;j++){
+	    for (unsigned k = 0; k<nbElements;k++){
+		    if (t[j] > t[k]){
+			min = t[k];
+			ind_min = k;
+		    }
+	    }
+	    t[j] = min;
+   	    t[ind_min]=t[j];
+    }
+
     for (unsigned int i=0;i<nbElements;i++){
 	ens[i] = t[i];
 	cardAct++;
