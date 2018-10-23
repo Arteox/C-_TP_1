@@ -72,7 +72,7 @@ Ensemble::Ensemble (int t [], unsigned int nbElements )
     
     ens=new int[nbElements];
     cardAct = 0;
-    for (int i=0;i<nbElements;i++){
+    for (unsigned int i=0;i<nbElements;i++){
 	ens[i] = t[i];
 	cardAct++;
 	
