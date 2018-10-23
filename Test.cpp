@@ -5,8 +5,8 @@ using namespace std;
 
 int main()
 {
-	//int a[]= {1,2,3,4};
-	Ensemble E(7);
+	int a[]= {1,2,3,4};
+	Ensemble E(a,4);
 	E.Afficher();
 	return 0;
 }

@@ -30,10 +30,16 @@ void Ensemble::Afficher(void){
 	cout << cardMax<<"\r\n";
 	cout <<"{";
 	for (int i =0; i<cardAct; i++){
-		cout << ens[i] <<",";
+		if (i!= cardAct-1){
+			cout << ens[i] <<",";
+		}
+		else {
+			cout << ens[i];
+		}
+			
 	}
 	cout << "}" << "\r\n";
-} //----- Fin de Méthode
+} //----- Fin de Méthode1111
 
 //------------------------------------------------- Surcharge d'opérateurs
 Ensemble & Ensemble::operator = ( const Ensemble & unEnsemble )
@@ -63,16 +69,15 @@ Ensemble::Ensemble (int t [], unsigned int nbElements )
 #ifdef MAP
     cout << "Appel au constructeur de <Ensemble>" << endl;
 #endif
-    cardMax = nbElements;
-    ens=new int[cardMax];
+    
+    ens=new int[nbElements];
     cardAct = 0;
     for (int i=0;i<nbElements;i++){
-	/*if (&p==NULL){
-		break;
-	}
-	cardAct++;*/
+	ens[i] = t[i];
+	cardAct++;
 	
     }
+    cardMax = nbElements;
 } //----- Fin de Ensemble
 
 
