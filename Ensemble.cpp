@@ -29,7 +29,7 @@ void Ensemble::Afficher(void){
 	cout << cardAct<<"\r\n";
 	cout << cardMax<<"\r\n";
 	cout <<"{";
-	for (int i =0; i<cardAct; i++){
+	for (unsigned int i =0; i<cardAct; i++){
 		if (i!= cardAct-1){
 			cout << ens[i] <<",";
 		}
