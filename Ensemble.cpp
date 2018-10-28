@@ -71,26 +71,32 @@ Ensemble::Ensemble (int t [], unsigned int nbElements )
 #endif
     
     ens=new int[nbElements];
+    cardMax=nbElements;
     cardAct = 0;
     int min;
-    int ind_min;
+
     for (unsigned int j = 0; j <nbElements;j++){
-	    for (unsigned k = 0; k<nbElements;k++){
-		    if (t[j] > t[k]){
-			min = t[k];
-			ind_min = k;
-		    }
-	    }
-	    t[j] = min;
-   	    t[ind_min]=t[j];
+	    for (unsigned k = 0; k<nbElements-1;k++){
+		    if (t[k] > t[k+1]){
+			min=t[k+1];
+			t[k+1]=t[k];
+			t[k]=min;
+			}
+		    if(t[k]==t[k+1]){
+			for(int i=0;i<nbElements;i++){
+			if(i>k){
+				t[i]=t[i+1];
+			}
+		        }
+			nbElements--;
+	   	    }
+   	    }
     }
 
     for (unsigned int i=0;i<nbElements;i++){
 	ens[i] = t[i];
 	cardAct++;
-	
-    }
-    cardMax = nbElements;
+     }
 } //----- Fin de Ensemble
 
 
@@ -108,4 +114,3 @@ Ensemble::~Ensemble ( )
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
-
