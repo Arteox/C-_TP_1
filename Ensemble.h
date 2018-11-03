@@ -13,8 +13,9 @@
 //--------------------------------------------------- Interfaces utilisées
 //------------------------------------------------------------- Constantes
 const unsigned  int CARD_MAX = 5;
-enum crduEstInclus {NON_INCLUSION, INCLUSION_LARGE, INCLUSION_STRICTE};
 
+enum crduEstInclus {NON_INCLUSION, INCLUSION_LARGE, INCLUSION_STRICTE};
+enum crduAjouter {DEJA_PRESENT, PLEIN, AJOUTE};
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
@@ -36,6 +37,15 @@ public:
     // Contrat :
     //
 	void Afficher(void);
+	bool Present(int element) const;
+	
+	bool Retirer_v2 (int element);
+	unsigned int Retirer(const Ensemble & unEnsemble);
+	bool Retirer (int element);
+	unsigned int Ajuster (int delta);
+	crduAjouter Ajouter(int aAjouter);
+	crduEstInclus EstInclus (const Ensemble & unEnsemble) const;
+	bool EstEgal (const Ensemble & unEnsemble ) const;
 
 //------------------------------------------------- Surcharge d'opérateurs
     Ensemble & operator = ( const Ensemble & unEnsemble );
@@ -43,8 +53,7 @@ public:
     //
     // Contrat :
     //
-	crduEstInclus EstInclus (const Ensemble & unEnsemble) const;
-	bool EstEgal (const Ensemble & unEnsemble ) const;
+	
 	
 //-------------------------------------------- Constructeurs - destructeur
     Ensemble ( unsigned int cMax=CARD_MAX );

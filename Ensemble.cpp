@@ -25,6 +25,8 @@ using namespace std;
 // type Ensemble::Méthode ( liste des paramètres )
 // Algorithme :
 //
+
+
 void Ensemble::Afficher(void){
 	cout << cardAct<<"\r\n";
 	cout << cardMax<<"\r\n";
@@ -39,14 +41,113 @@ void Ensemble::Afficher(void){
 			
 	}
 	cout << "}" << "\r\n";
-} //----- Fin de Méthode1111
+} //----- Fin de Méthode
 
-//------------------------------------------------- Surcharge d'opérateurs
-Ensemble & Ensemble::operator = ( const Ensemble & unEnsemble )
-// Algorithme :
-//
+unsigned int Ensemble::Retirer(const Ensemble & unEnsemble)
 {
-} //----- Fin de operator =
+	unsigned int compteur =0;
+	for (unsigned int i =0; i<unEnsemble.cardAct; i++){
+		compteur = compteur +Retirer_v2(unEnsemble.ens[i]);
+	}
+	return compteur;
+}
+
+unsigned int Ensemble::Ajuster(int delta){
+	if (delta >0){
+		cardMax = cardMax+delta;
+		return cardMax;
+	}
+	else if (delta == 0){
+		return cardMax;
+	}
+	else{
+		if (cardMax + delta >cardAct){
+			cardMax = cardMax + delta;
+		}
+		else {
+			cardMax = cardAct;
+		}
+		return cardMax;
+	}
+}
+
+bool Ensemble::Retirer_v2 (int element){
+	
+	int index = -1;
+	for (int i =0;i<cardAct;i++){
+		if (ens[i] == element){
+			index = i;
+			break;
+		}
+	}
+	if (index != -1){
+		for (int j =index; j<cardAct-1;j++){
+			ens[j]=ens[j+1];
+		}
+		cardAct--;
+		//cardMax = cardAct;
+		return true;
+	}
+	else {
+		//cardMax = cardAct;
+		return false;
+	}
+}
+
+bool Ensemble::Retirer (int element){
+	
+	int index = -1;
+	for (int i =0;i<cardAct;i++){
+		if (ens[i] == element){
+			index = i;
+			break;
+		}
+	}
+	if (index != -1){
+		for (int j =index; j<cardAct-1;j++){
+			ens[j]=ens[j+1];
+		}
+		cardAct--;
+		cardMax = cardAct;
+		return true;
+	}
+	else {
+		cardMax = cardAct;
+		return false;
+	}
+}
+
+bool Ensemble::Present(int element) const{
+	bool appartient=false;
+	for (unsigned int i=0; i<cardAct;i++){
+		if (element == ens[i]){
+			appartient = true;
+			return appartient;
+		}
+	}
+	return appartient;
+}
+	
+
+crduAjouter Ensemble::Ajouter (int aAjouter){
+	crduAjouter ajout;
+	if (Present(aAjouter)==true){
+		ajout = DEJA_PRESENT;
+		return ajout;
+	}
+	else {
+		if (cardAct == cardMax){
+			ajout = PLEIN;
+			return ajout;
+		}
+		else {
+			ajout = AJOUTE;
+			cardAct++;
+			ens[cardAct-1] = aAjouter;
+			return ajout;
+		}
+	}
+}
 
 crduEstInclus Ensemble::EstInclus (const Ensemble & unEnsemble) const
 {
@@ -104,13 +205,22 @@ bool Ensemble::EstEgal (const Ensemble & unEnsemble ) const
 		return egal;
 	}
 }
+//------------------------------------------------- Surcharge d'opérateurs
+Ensemble & Ensemble::operator = ( const Ensemble & unEnsemble )
+// Algorithme :
+//
+{
+} //----- Fin de operator =
+
+
+
 
 //-------------------------------------------- Constructeurs - destructeur
 Ensemble::Ensemble ( unsigned int cMax )
 // Algorithme :
 {
 #ifdef MAP
-	cout << "Appel au constructeur de copie de <Ensemble>" << endl;
+	//cout << "Appel au constructeur de copie de <Ensemble>" << endl;
 #endif
 	cardAct =0;
 	ens = new int [cMax];
@@ -123,7 +233,7 @@ Ensemble::Ensemble (int t [], unsigned int nbElements )
 //
 {
 #ifdef MAP
-	cout << "Appel au constructeur de <Ensemble>" << endl;
+	//cout << "Appel au constructeur de <Ensemble>" << endl;
 #endif
 	
 	ens=new int[nbElements];
@@ -163,7 +273,7 @@ Ensemble::~Ensemble ( )
 //
 {
 #ifdef MAP
-	cout << "Appel au destructeur de <Ensemble>" << endl;
+	//cout << "Appel au destructeur de <Ensemble>" << endl;
 #endif
 	delete [] ens;
 } //----- Fin de ~Ensemble
