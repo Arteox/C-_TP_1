@@ -13,6 +13,9 @@
 //--------------------------------------------------- Interfaces utilisées
 //------------------------------------------------------------- Constantes
 const unsigned  int CARD_MAX = 5;
+
+enum crduEstInclus {NON_INCLUSION,INCLUSION_LARGE,INCLUSION_STRICTE};
+enum crduAjouter {DEJA_PRESENT,PLEIN,AJOUTE};
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
@@ -34,6 +37,11 @@ public:
     // Contrat :
     //
 	void Afficher(void);
+	bool EstEgal(const Ensemble & unEnsemble) const;
+	crduEstInclus EstInclus(const Ensemble & unEnsemble)const;
+	crduAjouter Ajouter(int aAjouter);
+	unsigned int Ajuster(int delta);
+	bool Retirer(int element);
 
 //------------------------------------------------- Surcharge d'opérateurs
     Ensemble & operator = ( const Ensemble & unEnsemble );

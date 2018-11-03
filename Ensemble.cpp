@@ -39,7 +39,90 @@ void Ensemble::Afficher(void){
 			
 	}
 	cout << "}" << "\r\n";
-} //----- Fin de Méthode1111
+}
+
+bool Ensemble::EstEgal(const Ensemble & unEnsemble)const{
+	bool estEgal=false;
+	if(cardAct==unEnsemble.cardAct){	
+		for (int i=0;i<unEnsemble.cardAct;i++){
+			if(ens[i]==unEnsemble.ens[i]){
+			estEgal=true;	
+			}else{
+			estEgal=false;
+			return estEgal;
+			break;
+			}
+		}	
+	}else{
+		return estEgal;
+	}
+}
+
+crduEstInclus Ensemble::EstInclus(const Ensemble & unEnsemble)const{
+	crduEstInclus inclu;
+	unsigned int compteur=0;
+
+	inclu=NON_INCLUSION;
+	if (cardAct<=unEnsemble.cardAct){
+	if(cardAct==unEnsemble.cardAct){
+		if(this->EstEgal(unEnsemble)){
+		inclu=INCLUSION_LARGE;
+		}
+	}else{
+	for(int i=0;i<cardAct;i++){
+		for(int j=0;j<unEnsemble.cardAct;j++){
+			if(ens[i]==unEnsemble.ens[j]){
+			compteur++;
+			}
+		}
+	}
+	}
+	if(compteur==cardAct){
+		inclu=NON_INCLUSION;
+	}
+	}
+
+	return inclu;
+}
+
+crduAjouter Ensemble::Ajouter(int aAjouter){
+	crduAjouter ajout;
+
+	ajout=AJOUTE;
+
+	for (int i=0;i<cardAct;i++){
+		if(ens [i]==aAjouter){
+		ajout=DEJA_PRESENT;
+		break;
+		}
+	}
+	if(cardAct==cardMax && ajout!=DEJA_PRESENT){
+		ajout=PLEIN;
+	}else if(ajout!=DEJA_PRESENT){
+		ens[cardAct]=aAjouter;
+		ajout=AJOUTE;
+		cardAct++;
+	}
+	return ajout;
+}
+
+unsigned int Ensemble::Ajuster(int delta){
+	int newCardMax=cardMax;
+
+	if(delta>0){
+		newCardMax=cardMax+delta;
+	}
+	if(delta<0){
+		if(cardMax+delta>cardAct){
+			newCardMax=cardMax+delta;	
+		}else{
+			newCardMax=cardAct;
+		}
+	}
+	return newCardMax;
+}
+
+//----- Fin de Méthode1111
 
 //------------------------------------------------- Surcharge d'opérateurs
 Ensemble & Ensemble::operator = ( const Ensemble & unEnsemble )
