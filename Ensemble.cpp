@@ -122,6 +122,23 @@ unsigned int Ensemble::Ajuster(int delta){
 	return newCardMax;
 }
 
+bool Ensemble::Retirer(int element){
+	bool retire=false;
+	for (int i=0;i<cardAct;i++){
+		if(ens[i]==element){
+			for(int j=0;j<cardAct-1;j++){
+				if(j>=i){
+				ens[j]=ens[j+1];
+				}
+			}	
+		cardAct--;
+		retire=true;
+		}
+	}
+	cardMax=cardAct;
+	return retire;
+}
+
 //----- Fin de Méthode1111
 
 //------------------------------------------------- Surcharge d'opérateurs
