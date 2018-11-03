@@ -13,6 +13,8 @@
 //--------------------------------------------------- Interfaces utilisées
 //------------------------------------------------------------- Constantes
 const unsigned  int CARD_MAX = 5;
+enum crduEstInclus {NON_INCLUSION, INCLUSION_LARGE, INCLUSION_STRICTE};
+
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
@@ -41,8 +43,9 @@ public:
     //
     // Contrat :
     //
-
-
+	crduEstInclus EstInclus (const Ensemble & unEnsemble) const;
+	bool EstEgal (const Ensemble & unEnsemble ) const;
+	
 //-------------------------------------------- Constructeurs - destructeur
     Ensemble ( unsigned int cMax=CARD_MAX );
     // Mode d'emploi (constructeur de copie) :
@@ -68,9 +71,9 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-unsigned int cardMax;
-unsigned int cardAct;
-int *ens;
+	unsigned int cardMax;
+	unsigned int cardAct;
+	int *ens;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Ensemble>

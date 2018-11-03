@@ -1,9 +1,9 @@
 /*************************************************************************
-                           Ensemble  -  description
-                             -------------------
-    début                : $DATE$
-    copyright            : (C) $YEAR$ par $AUTHOR$
-    e-mail               : $EMAIL$
+						   Ensemble  -  description
+							 -------------------
+	début                : $DATE$
+	copyright            : (C) $YEAR$ par $AUTHOR$
+	e-mail               : $EMAIL$
 *************************************************************************/
 
 //---------- Réalisation de la classe <Ensemble> (fichier Ensemble.cpp) ------------
@@ -48,17 +48,73 @@ Ensemble & Ensemble::operator = ( const Ensemble & unEnsemble )
 {
 } //----- Fin de operator =
 
+crduEstInclus Ensemble::EstInclus (const Ensemble & unEnsemble) const
+{
+	bool appartient;
+	crduEstInclus inclus = INCLUSION_LARGE;
+	if (EstEgal(unEnsemble)==true){
+		inclus = INCLUSION_LARGE;
+		return inclus;
+	}
+	else {
+		for (int i =0; i<this->cardAct;i++){
+			appartient = false;
+			for (int j =0; j< unEnsemble.cardAct; j++){
+				if (this->ens[i] == unEnsemble.ens[j]){
+					appartient = true;
+				}
+			}
+			if (appartient == false){
+				inclus = NON_INCLUSION;
+				return inclus;
+			}
+		}
+		inclus = INCLUSION_STRICTE;
+		return inclus;
+		
+	}
+}
+
+bool Ensemble::EstEgal (const Ensemble & unEnsemble ) const
+{
+	bool appartient = false;
+	bool egal = true;
+	if (this->cardAct == unEnsemble.cardAct){
+		for (int i =0; i<this->cardAct;i++){
+			appartient = false;
+			
+			for (int j=0;j<this->cardAct;j++){
+				if (this->ens[i] == unEnsemble.ens[j]){
+					appartient = true;
+				}
+			}
+			if (appartient == false){
+				egal = false;
+				//cout << " faux" <<egal<<"\r\n";
+				return egal;
+			}
+		}
+		
+		//cout << "vrai" <<egal << "\r\n";
+		return egal;
+	}
+	else {
+		egal = false;
+		//cout << " faux" <<egal<<"\r\n";
+		return egal;
+	}
+}
 
 //-------------------------------------------- Constructeurs - destructeur
 Ensemble::Ensemble ( unsigned int cMax )
 // Algorithme :
 {
 #ifdef MAP
-    cout << "Appel au constructeur de copie de <Ensemble>" << endl;
+	cout << "Appel au constructeur de copie de <Ensemble>" << endl;
 #endif
-    cardAct =0;
-    ens = new int [cMax];
-    cardMax = cMax;
+	cardAct =0;
+	ens = new int [cMax];
+	cardMax = cMax;
 } //----- Fin de Ensemble (constructeur de copie)
 
 
@@ -67,36 +123,38 @@ Ensemble::Ensemble (int t [], unsigned int nbElements )
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <Ensemble>" << endl;
+	cout << "Appel au constructeur de <Ensemble>" << endl;
 #endif
-    
-    ens=new int[nbElements];
-    cardMax=nbElements;
-    cardAct = 0;
-    int min;
+	
+	ens=new int[nbElements];
+	cardMax=nbElements;
+	cardAct = 0;
+	bool doublon = false;
 
-    for (unsigned int j = 0; j <nbElements;j++){
-	    for (unsigned k = 0; k<nbElements-1;k++){
-		    if (t[k] > t[k+1]){
-			min=t[k+1];
-			t[k+1]=t[k];
-			t[k]=min;
+	for (unsigned int j = 0; j <nbElements;j++){
+		for (unsigned int k =0;k<cardAct;k++){
+			if (ens[k]==t[j]){
+				doublon = true;
 			}
-		    if(t[k]==t[k+1]){
-			for(int i=0;i<nbElements;i++){
-			if(i>k){
-				t[i]=t[i+1];
-			}
-		        }
-			nbElements--;
-	   	    }
-   	    }
-    }
+		}
+	
+		if (doublon == false){
+			ens[cardAct]=t[j];
+			cardAct++;
+		}
+			doublon = false;
+	}
 
-    for (unsigned int i=0;i<nbElements;i++){
-	ens[i] = t[i];
-	cardAct++;
-     }
+	for (unsigned int i =0; i<cardAct;i++){
+		for (unsigned int g =0; g<cardAct-1; g++){
+			if (ens[g]>ens[g+1]){
+				int temp = ens[g];
+				ens[g]=ens[g+1];
+				ens[g+1]=temp;
+			}
+		}
+	}
+
 } //----- Fin de Ensemble
 
 
@@ -105,9 +163,9 @@ Ensemble::~Ensemble ( )
 //
 {
 #ifdef MAP
-    cout << "Appel au destructeur de <Ensemble>" << endl;
+	cout << "Appel au destructeur de <Ensemble>" << endl;
 #endif
-    delete [] ens;
+	delete [] ens;
 } //----- Fin de ~Ensemble
 
 
