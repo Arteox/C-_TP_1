@@ -105,7 +105,11 @@ unsigned int Ensemble::Retirer(const Ensemble & unEnsemble)
 {
 	unsigned int compteur =0;
 	for (unsigned int i =0; i<unEnsemble.cardAct; i++){
-		compteur = compteur +Retirer_v2(unEnsemble.ens[i]);
+		if (Retirer_v2(unEnsemble.ens[i])){
+			i--;
+			compteur++;
+		}
+		
 	}
 	return compteur;
 }
