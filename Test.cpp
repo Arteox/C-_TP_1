@@ -52,20 +52,20 @@ int main()
 	E.Afficher();*/
 	
 	//reunir
-	/*int a[] = {8,5,4,6,15,20,45,44};
-	Ensemble E(a,8);
-	int b[] = {88,54,33,22,11};
-	Ensemble E1(b,5);
+	int a[] = {8,5,4,4,4,4};
+	Ensemble E(a,6);
+	int b[] = {10,-88,-94,56};
+	Ensemble E1(b,4);
 	cout << "ajoutes ou rajustes : " << E.Reunir(E1) <<"\r\n";
-	E.Afficher();*/
+	E.Afficher();
 	
 	//intersection
-	int a[] = {8,56,4,6,15,20,45,44};
+	/*int a[] = {8,56,4,6,15,20,45,44};
 	Ensemble E(a,8);
 	int b[] = {8,56,4,6,15,20,45,44};
 	Ensemble E1(b,8);
 	cout << "supprimes : " << E.Intersection(E1) << "\r\n";
-	E.Afficher();
+	E.Afficher();*/
 	
 	return 0;
 }

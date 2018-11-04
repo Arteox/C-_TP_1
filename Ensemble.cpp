@@ -32,7 +32,6 @@ unsigned int Ensemble::Intersection ( const Ensemble & unEnsemble )
 	
 	for (int i =0; i<this->cardAct; i++){
 		if (cardAct ==0){
-			cardMax = cardAct;
 			break;
 		}
 		if (!unEnsemble.Present(ens[i])){
@@ -41,6 +40,7 @@ unsigned int Ensemble::Intersection ( const Ensemble & unEnsemble )
 			suppr++;
 		}
 	}
+	cardMax = cardAct;
 	return suppr;
 }
 			
@@ -49,12 +49,16 @@ int Ensemble::Reunir (const Ensemble & unEnsemble)
 {
 	int compteur =0;
 	for (unsigned int i =0; i<unEnsemble.cardAct; i++){
+		//on reunit que si des elements de unEnsemble ne sont pas presents dans Ensemble
 		if (Present(unEnsemble.ens[i]) == false){
+			//pas de reajustement de l'ens
 			if (cardAct < cardMax){
 				ens[cardAct] = unEnsemble.ens[i];
 				cardAct++;
 				compteur++;
-			} else {
+			}
+			//il faut reajuster l'ens
+			else {
 				if (compteur >0){
 					compteur =-compteur -1;
 				}
@@ -67,10 +71,21 @@ int Ensemble::Reunir (const Ensemble & unEnsemble)
 			}
 		}
 	}
+			
 	return compteur;
 }
 
 void Ensemble::Afficher(void){
+	int tmp;
+	for (int j=0; j<cardAct;j++){
+		for (int k =0; k<cardAct-1;k++){
+			if (ens[k] >ens[k+1]){
+				tmp = ens[k];
+				ens[k]=ens[k+1];
+				ens[k+1]=tmp;
+			}
+		}
+	}
 	cout << cardAct<<"\r\n";
 	cout << cardMax<<"\r\n";
 	cout <<"{";
@@ -163,7 +178,7 @@ bool Ensemble::Retirer (int element){
 bool Ensemble::Present(int element) const{
 	bool appartient=false;
 	for (unsigned int i=0; i<this->cardAct;i++){
-		if (element == this->ens[i]){
+		if (this->ens[i] == element){
 			appartient = true;
 			break;
 		}
