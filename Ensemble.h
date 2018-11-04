@@ -39,6 +39,8 @@ public:
 	void Afficher(void);
 	bool Present(int element) const;
 	
+	unsigned int Intersection ( const Ensemble & unEnsemble );
+	int Reunir (const Ensemble & unEnsemble);
 	bool Retirer_v2 (int element);
 	unsigned int Retirer(const Ensemble & unEnsemble);
 	bool Retirer (int element);

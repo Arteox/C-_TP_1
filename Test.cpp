@@ -44,11 +44,27 @@ int main()
 	E.Afficher();*/
 	
 	//retirer ens
-	int a[] = {8,5,4,6,15,20};
-	Ensemble E(a,6);
-	int b[] = {6,4,5,20};
-	Ensemble E1(b,4);
+	/*int a[] = {8,5,4,6,15,20,20};
+	Ensemble E(a,7);
+	int b[] = {6};
+	Ensemble E1(b,1);
 	cout << "nb d'elements retires : " <<E.Retirer(E1) <<"\r\n";
+	E.Afficher();*/
+	
+	//reunir
+	/*int a[] = {8,5,4,6,15,20,45,44};
+	Ensemble E(a,8);
+	int b[] = {88,54,33,22,11};
+	Ensemble E1(b,5);
+	cout << "ajoutes ou rajustes : " << E.Reunir(E1) <<"\r\n";
+	E.Afficher();*/
+	
+	//intersection
+	int a[] = {8,56,4,6,15,20,45,44};
+	Ensemble E(a,8);
+	int b[] = {8,56,4,6,15,20,45,44};
+	Ensemble E1(b,8);
+	cout << "supprimes : " << E.Intersection(E1) << "\r\n";
 	E.Afficher();
 	
 	return 0;
