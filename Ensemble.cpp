@@ -45,7 +45,7 @@ unsigned int Ensemble::Intersection ( const Ensemble & unEnsemble )
 }
 			
 
-int Ensemble::Reunir (const Ensemble & unEnsemble)
+/*int Ensemble::Reunir (const Ensemble & unEnsemble)
 {
 	int compteur =0;
 	for (unsigned int i =0; i<unEnsemble.cardAct; i++){
@@ -73,7 +73,41 @@ int Ensemble::Reunir (const Ensemble & unEnsemble)
 	}
 			
 	return compteur;
+}*/
+
+int Ensemble::Reunir (const Ensemble & unEnsemble)
+{
+	int compteur = 0;
+	int indice =0;
+	int cardMaxInit = cardMax;
+	crduAjouter ajout;
+	for (int i=0; i<unEnsemble.cardAct; i++){
+		ajout = this->Ajouter(unEnsemble.ens[indice]);
+		/* cout << "unEnsemble.ens[indice] boucle : " << unEnsemble.ens[indice] << "\r\n\n";
+		cout << "indice boucle : " << indice << "\r\n\n";
+		cout << "compteur boucle : " << compteur << "\r\n"; */
+		if (ajout == PLEIN){
+			i--;
+			cardMax++;
+		}
+		else if (ajout == AJOUTE){
+			// cout << "ajoute : " << unEnsemble.ens[indice] <<"\r\n";
+			indice++;
+			compteur++;
+		}
+		else {
+			indice++;
+		}
+		
+	}
+	if (cardMax != cardMaxInit){
+		return -compteur;
+	}
+	else {
+		return compteur;
+	}
 }
+
 
 void Ensemble::Afficher(void){
 	int tmp;
